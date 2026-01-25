@@ -23,7 +23,6 @@ export default function AuthPage() {
     password: "",
   });
 
-  /* ---------------- LOGIN ---------------- */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -43,8 +42,8 @@ export default function AuthPage() {
       }
 
       toast.success("Welcome back!");
-      router.push("/studio");
-      router.refresh(); // re-evaluate server components
+      router.push("/");
+      router.refresh();
     } catch {
       toast.error("Login failed. Please try again.");
     } finally {
@@ -52,7 +51,6 @@ export default function AuthPage() {
     }
   };
 
-  /* ---------------- REGISTER ---------------- */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -72,7 +70,7 @@ export default function AuthPage() {
       }
 
       toast.success("Account created successfully!");
-      router.push("/studio");
+      router.push("/");
       router.refresh();
     } catch {
       toast.error("Registration failed. Please try again.");
@@ -84,10 +82,9 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md space-y-8">
-        {/* Header */}
         <div className="text-center">
           <div className="w-24 h-24 flex items-center justify-center mx-auto mb-4">
-            <img src="/logo.png" />
+            <img src="/assets/logo.png" />
           </div>
           <h1 className="text-4xl font-display">INFINITYCAST</h1>
           <p className="text-muted-foreground mt-2">
@@ -95,14 +92,12 @@ export default function AuthPage() {
           </p>
         </div>
 
-        {/* Tabs */}
         <Tabs defaultValue="login" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Login</TabsTrigger>
+            <TabsTrigger value="login">Sign in</TabsTrigger>
             <TabsTrigger value="register">Register</TabsTrigger>
           </TabsList>
 
-          {/* LOGIN */}
           <TabsContent value="login">
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
@@ -137,12 +132,11 @@ export default function AuthPage() {
               </div>
 
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Logging in..." : "Login"}
+                {isLoading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
           </TabsContent>
 
-          {/* REGISTER */}
           <TabsContent value="register">
             <form onSubmit={handleRegister} className="space-y-4">
               <div className="space-y-2">
