@@ -50,12 +50,10 @@ function LayoutContent({ user, searchOpen, setSearchOpen, children }: any) {
         <MainSidebar user={user} />
       </div>
 
-      {/* Main content */}
       <div className="flex flex-1 flex-col min-w-0 transition-all duration-200">
         <header className="shrink-0 z-50 h-14 border-b border-border/50 bg-background/80 backdrop-blur-xl flex items-center px-4 gap-4">
-          <SidebarTrigger />
+          {!collapsed && <SidebarTrigger />}
 
-          {/* Mobile logo */}
           <div className="md:hidden flex-1 flex justify-center">
             <img
               src="/assets/logo.png"
@@ -65,7 +63,6 @@ function LayoutContent({ user, searchOpen, setSearchOpen, children }: any) {
             />
           </div>
 
-          {/* Desktop search */}
           <div className="hidden md:block flex-1 max-w-md">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />

@@ -14,11 +14,12 @@ import {
   useSidebar,
   SidebarFooter,
   SidebarHeader,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Separator } from "../ui/separator";
+import { Separator } from "@/components/ui/separator";
 
 const navItems = [
   {
@@ -48,28 +49,41 @@ export function MainSidebar({ user }: MainSidebarProps) {
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <div
-          className={`flex items-center gap-3 p-4 ${
+          className={`flex items-center gap-3 px-4 py-2 ${
             collapsed ? "justify-center" : ""
           }`}
         >
-          <Link href="/" className="flex items-center gap-3 group">
-            <img
-              src="/assets/logo.png"
-              alt="InfinityCast"
-              width={32}
-              height={32}
-              className="transition-transform duration-300 group-hover:scale-110 shrink-0"
-            />
-            {!collapsed && (
-              <span className="text-xl font-display tracking-wider">
-                INFINITYCAST
-              </span>
+          <Link href="/" className="group inline-flex items-center">
+            {collapsed ? (
+              <div className="relative flex items-center justify-center w-8 h-8">
+                <img
+                  src="/assets/logo.png"
+                  alt="InfinityCast"
+                  width={32}
+                  height={32}
+                  className="absolute inset-0 my-auto transition-all duration-150 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-90"
+                />
+                <div className="absolute inset-0 flex items-center justify-center transition-all duration-150 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                  <SidebarTrigger />
+                </div>
+              </div>
+            ) : (
+              <>
+                <img
+                  src="/assets/logo.png"
+                  alt="InfinityCast"
+                  width={32}
+                  height={32}
+                  className="shrink-0"
+                />
+                <span className="ml-3 text-xl font-display tracking-wider">
+                  INFINITYCAST
+                </span>
+              </>
             )}
           </Link>
         </div>
       </SidebarHeader>
-
-      <Separator />
 
       <SidebarContent>
         <SidebarGroup className="mt-4">
@@ -116,7 +130,7 @@ export function MainSidebar({ user }: MainSidebarProps) {
         )}
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="p-0">
         <Separator className="mb-4" />
 
         {user ? (
@@ -141,9 +155,10 @@ export function MainSidebar({ user }: MainSidebarProps) {
                   </p>
                 </div>
                 <button
-                  onClick={() =>
-                    alert("Sign out functionality not implemented.")
-                  }
+                  onClick={async () => {
+                    await fetch("/api/logout", { method: "POST" });
+                    window.location.href = "/";
+                  }}
                   className="p-2 hover:bg-muted rounded-md transition-colors"
                   title="Sign out"
                 >
