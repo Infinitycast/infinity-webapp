@@ -25,7 +25,7 @@ export async function getMyShows() {
     const userId = me.data.id;
 
     const creatorsRes = await fetch(
-      `${process.env.BACKEND_URL}/items/creator?filter[owner][_eq]=${userId}`,
+      `${process.env.BACKEND_URL}/items/creator?filter[owner][_eq]=${userId}&fields=id,owner&limit=1`,
       {
         headers: { Authorization: `Bearer ${token}` },
         cache: "no-store",

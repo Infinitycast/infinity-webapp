@@ -6,12 +6,19 @@ import { Eye, Play, Plus, TrendingUp, Users } from "lucide-react";
 import Link from "next/link";
 import { getMyShows } from "../actions/getMyShows";
 import { redirect } from "next/navigation";
+import { isUserCreator } from "../actions/isUserCreator";
 
 export default async function Studio() {
   const user = await getCurrentUser();
 
   if (!user) {
     redirect("/auth/signin");
+  }
+
+  const isCreator = await isUserCreator({ userId: user?.id });
+
+  if (isCreator === false) {
+    redirect("/studio/onboarding");
   }
 
   const myShows = await getMyShows();

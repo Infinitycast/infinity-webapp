@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const REFRESH_INTERVAL = 14 * 60 * 1000;
+const REFRESH_INTERVAL = 120 * 60 * 1000;
 
 export function TokenRefresher() {
   useEffect(() => {
