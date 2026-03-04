@@ -21,6 +21,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   {
@@ -46,7 +47,7 @@ export function MainSidebar({ user }: MainSidebarProps) {
   const collapsed = state === "collapsed";
   const filteredItems = navItems.filter((item) => !item.authRequired || user);
 
-  const currentPath = location.pathname;
+  const currentPath = usePathname();
 
   return (
     <Sidebar collapsible="icon">

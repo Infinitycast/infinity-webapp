@@ -30,6 +30,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 const TwitchIcon = (props: any) => (
   <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -55,7 +56,7 @@ export function StudioSidebar(props: any) {
 
   const { state } = useSidebar();
 
-  const currentPath = location.pathname;
+  const currentPath = usePathname();
   const collapsed = state === "collapsed";
 
   return (
