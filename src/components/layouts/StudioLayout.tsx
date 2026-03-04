@@ -1,6 +1,10 @@
 "use client";
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import {
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { StudioSidebar } from "@/components/sidebar/StudioSidebar";
 
 import { Button } from "@/components/ui/button";
@@ -8,6 +12,7 @@ import Link from "next/link";
 import { ArrowLeft, Home } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { User } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 interface StudioLayoutProps {
   user: User;
@@ -19,12 +24,16 @@ export function StudioLayout({ user, children }: StudioLayoutProps) {
     return null;
   }
 
+  const { state } = useSidebar();
+
+  const collapsed = state === "collapsed";
+
   return (
     <SidebarProvider defaultOpen={true}>
-      <div className="h-screen flex w-full overflow-hidden bg-muted/20">
+      <div className="h-screen flex  overflow-hidden bg-muted/20 w-full">
         <StudioSidebar user={user} />
 
-        <div className="flex-1 flex flex-col min-w-0 h-screen">
+        <div className={cn("flex-1 flex flex-col h-screen w-full")}>
           {/* Top Bar */}
           <header className="shrink-0 h-14 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
             <div className="flex items-center h-full px-4 gap-4">

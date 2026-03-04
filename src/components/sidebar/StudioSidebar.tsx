@@ -23,10 +23,13 @@ import {
   SidebarMenuItem,
   useSidebar,
   SidebarFooter,
+  SidebarTrigger,
+  SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const TwitchIcon = (props: any) => (
   <svg {...props} viewBox="0 0 24 24" fill="currentColor">
@@ -55,33 +58,49 @@ export function StudioSidebar(props: any) {
   const currentPath = location.pathname;
   const collapsed = state === "collapsed";
 
-  const isActive = (path: string) => currentPath === path;
-
   return (
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
-      <SidebarContent>
-        {/* Logo */}
+      <SidebarHeader>
         <div
-          className={`flex items-center gap-3 p-4 ${
+          className={`flex items-center gap-3 px-4 py-2 ${
             collapsed ? "justify-center" : ""
           }`}
         >
-          <img
-            src="/assets/logo.png"
-            alt="Infinity Studio"
-            className="h-8 w-8 object-contain shrink-0"
-          />
-          {!collapsed && (
-            <div>
-              <h2 className="font-display text-lg leading-tight">
-                INFINITY STUDIO
-              </h2>
-            </div>
-          )}
+          <Link href="/" className="group inline-flex items-center">
+            {collapsed ? (
+              <div className="relative flex items-center justify-center w-8 h-8">
+                <img
+                  src="/assets/logo.png"
+                  alt="InfinityCast"
+                  width={32}
+                  height={32}
+                  className="absolute inset-0 my-auto transition-all duration-150 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-90"
+                />
+                <div className="absolute inset-0 flex items-center justify-center transition-all duration-150 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+                  <SidebarTrigger />
+                </div>
+              </div>
+            ) : (
+              <>
+                <img
+                  src="/assets/logo.png"
+                  alt="InfinityCast"
+                  width={32}
+                  height={32}
+                  className="shrink-0"
+                />
+                <span className="ml-3 text-xl font-display tracking-wider">
+                  INFINITYCAST
+                </span>
+              </>
+            )}
+          </Link>
         </div>
+      </SidebarHeader>
 
-        <Separator />
+      <Separator />
 
+      <SidebarContent>
         <SidebarGroup className="mt-4">
           <SidebarGroupContent>
             <SidebarMenu>
@@ -90,7 +109,12 @@ export function StudioSidebar(props: any) {
                   <SidebarMenuButton asChild>
                     <Link
                       href={item.url}
-                      className="hover:bg-muted/50 hover:text-foreground active:bg-primary/10 active:text-primary active:font-medium active: border-l-2 active:border-primary"
+                      className={cn(
+                        "hover:bg-muted/50 hover:text-foreground active:bg-primary/10 active:text-primary active:font-medium active:border-primary",
+                        {
+                          "bg-primary text-black": currentPath === item.url,
+                        }
+                      )}
                     >
                       <item.icon
                         className={`h-5 w-5 ${collapsed ? "" : "mr-3"}`}
@@ -116,7 +140,7 @@ export function StudioSidebar(props: any) {
             {collapsed ? (
               <Avatar className="h-8 w-8">
                 <AvatarImage src={user.avatar} />
-                <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                <AvatarFallback>{user.first_name.charAt(0)}</AvatarFallback>
               </Avatar>
             ) : (
               <>

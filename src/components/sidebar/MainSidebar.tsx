@@ -20,6 +20,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   {
@@ -30,7 +31,7 @@ const navItems = [
   },
   {
     title: "Home",
-    url: "/home",
+    url: "/",
     icon: HomeIcon,
     authRequired: false,
   },
@@ -44,6 +45,8 @@ export function MainSidebar({ user }: MainSidebarProps) {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const filteredItems = navItems.filter((item) => !item.authRequired || user);
+
+  const currentPath = location.pathname;
 
   return (
     <Sidebar collapsible="icon">
@@ -94,7 +97,12 @@ export function MainSidebar({ user }: MainSidebarProps) {
                   <SidebarMenuButton asChild>
                     <Link
                       href={item.url}
-                      className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 hover:text-foreground transition-colors"
+                      className={cn(
+                        "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 hover:text-foreground transition-colors",
+                        {
+                          "bg-primary text-black": currentPath === item.url,
+                        }
+                      )}
                     >
                       <item.icon className="h-5 w-5 shrink-0" />
                       {!collapsed && <span>{item.title}</span>}

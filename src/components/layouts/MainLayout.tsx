@@ -1,11 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import {
-  SidebarProvider,
-  SidebarTrigger,
-  useSidebar,
-} from "@/components/ui/sidebar";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { MainSidebar } from "@/components/sidebar/MainSidebar";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -22,15 +18,13 @@ export function MainLayout({ user, children }: MainLayoutProps) {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <SidebarProvider>
-      <LayoutContent
-        user={user}
-        searchOpen={searchOpen}
-        setSearchOpen={setSearchOpen}
-      >
-        {children}
-      </LayoutContent>
-    </SidebarProvider>
+    <LayoutContent
+      user={user}
+      searchOpen={searchOpen}
+      setSearchOpen={setSearchOpen}
+    >
+      {children}
+    </LayoutContent>
   );
 }
 
@@ -40,7 +34,7 @@ function LayoutContent({ user, searchOpen, setSearchOpen, children }: any) {
   const collapsed = state === "collapsed";
 
   return (
-    <div className="flex min-h-screen w-full overflow-hidden">
+    <div className="flex min-h-screen min-w-full overflow-hidden">
       <div
         className={cn(
           "flex-shrink-0 transition-all duration-200",
