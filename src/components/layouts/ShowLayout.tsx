@@ -79,7 +79,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
 
               <p className="mb-2">
                 Hosted by{" "}
-                {show.hosts.map((host, i) => {
+                {show.hosts.map((host: any, i: number) => {
                   return (
                     <span key={host.id}>
                       <Link

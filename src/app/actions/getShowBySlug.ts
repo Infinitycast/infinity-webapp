@@ -15,7 +15,7 @@ export async function getShowBySlug(slug: string) {
     Authorization: `Bearer ${token}`,
   };
 
-  // 1️⃣ Fetch show
+  // Fetch show
   const showRes = await fetch(
     `${process.env.BACKEND_URL}/items/shows?filter[slug][_eq]=${slug}&limit=1`,
     { headers, cache: "no-store" }
@@ -31,7 +31,7 @@ export async function getShowBySlug(slug: string) {
 
   const show = showData[0];
 
-  // 2️⃣ Fetch junction (shows_creator)
+  // Fetch junction (shows_creator)
   const junctionRes = await fetch(
     `${process.env.BACKEND_URL}/items/shows_creator?filter[shows_id][_eq]=${show.id}`,
     { headers, cache: "no-store" }
@@ -51,7 +51,7 @@ export async function getShowBySlug(slug: string) {
     };
   }
 
-  // 3️⃣ Fetch creators by IDs
+  // Fetch creators by IDs
   const creatorsRes = await fetch(
     `${process.env.BACKEND_URL}/items/creator?filter[id][_in]=${creatorIds.join(
       ","
@@ -63,7 +63,7 @@ export async function getShowBySlug(slug: string) {
 
   const { data: creatorsData } = await creatorsRes.json();
 
-  // 4️⃣ Map into hosts array
+  // Map into hosts array
   const hosts = creatorsData.map((creator: any) => ({
     id: creator.id,
     name: creator.name,
