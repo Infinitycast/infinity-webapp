@@ -1,12 +1,11 @@
 "use server";
 
-import { cookies } from "next/headers";
-import { Global } from "@/lib/directus";
+import { BACKEND_URL } from "@/lib/globals";
 
 export async function getShowBySlug(slug: string) {
   // Fetch show
   const showRes = await fetch(
-    `${process.env.BACKEND_URL}/items/shows?filter[slug][_eq]=${slug}&limit=1`,
+    `${BACKEND_URL}/items/shows?filter[slug][_eq]=${slug}&limit=1`,
     { cache: "no-store" }
   );
 
@@ -14,15 +13,13 @@ export async function getShowBySlug(slug: string) {
 
   const { data: showData } = await showRes.json();
 
-  if (!showData || showData.length === 0) {
-    throw new Error("Show not found");
-  }
+  if (!showData?.length) throw new Error("Show not found");
 
   const show = showData[0];
 
-  // Fetch junction (shows_creator)
+  // Fetch hosts (junction)
   const junctionRes = await fetch(
-    `${process.env.BACKEND_URL}/items/shows_creator?filter[shows_id][_eq]=${show.id}`,
+    `${BACKEND_URL}/items/shows_creator?filter[shows_id][_eq]=${show.id}`,
     { cache: "no-store" }
   );
 
@@ -30,36 +27,81 @@ export async function getShowBySlug(slug: string) {
 
   const { data: junctionData } = await junctionRes.json();
 
-  // Extract creator IDs
-  const creatorIds = junctionData.map((item: any) => item.creator_id);
+  const creatorIds = junctionData.map((j: any) => j.creator_id);
 
-  if (creatorIds.length === 0) {
-    return {
-      ...show,
-      hosts: [],
-    };
+  let hosts: any[] = [];
+
+  if (creatorIds.length) {
+    const creatorsRes = await fetch(
+      `${BACKEND_URL}/items/creator?filter[id][_in]=${creatorIds.join(
+        ","
+      )}&fields=id,name`,
+      { cache: "no-store" }
+    );
+
+    if (!creatorsRes.ok) throw new Error("Failed to fetch creators");
+
+    const { data: creatorsData } = await creatorsRes.json();
+
+    hosts = creatorsData.map((c: any) => ({
+      id: c.id,
+      name: c.name,
+    }));
   }
 
-  // Fetch creators by IDs
-  const creatorsRes = await fetch(
-    `${process.env.BACKEND_URL}/items/creator?filter[id][_in]=${creatorIds.join(
-      ","
-    )}&fields=id,name`,
+  // Fetch series for this show
+  const seriesRes = await fetch(
+    `${BACKEND_URL}/items/series?filter[show][_eq]=${show.id}&sort=order`,
     { cache: "no-store" }
   );
 
-  if (!creatorsRes.ok) throw new Error("Failed to fetch creators");
+  if (!seriesRes.ok) throw new Error("Failed to fetch series");
 
-  const { data: creatorsData } = await creatorsRes.json();
+  const { data: seriesData } = await seriesRes.json();
 
-  // Map into hosts array
-  const hosts = creatorsData.map((creator: any) => ({
-    id: creator.id,
-    name: creator.name,
-  }));
+  // Fetch episodes for all series
+  const seriesIds = seriesData.map((s: any) => s.id);
+
+  let episodesData: any[] = [];
+
+  if (seriesIds.length) {
+    const episodesRes = await fetch(
+      `${BACKEND_URL}/items/episodes?filter[series][_in]=${seriesIds.join(
+        ","
+      )}&filter[status][_eq]=published&sort=-release_date`,
+      { cache: "no-store" }
+    );
+
+    if (!episodesRes.ok) throw new Error("Failed to fetch episodes");
+
+    const { data } = await episodesRes.json();
+    episodesData = data;
+  }
+
+  // Group episodes by series
+  const seriesWithEpisodes = seriesData.map((series: any) => {
+    const episodes = episodesData
+      .filter((ep) => ep.series === series.id)
+      .map((ep) => ({
+        id: ep.id,
+        title: ep.title,
+        episode_number: ep.episode_number,
+        image: show.image,
+        duration: "—",
+        date: new Date(ep.release_date).toLocaleDateString(),
+        description: ep.about,
+      }));
+    console.log(episodes);
+    return {
+      id: series.id,
+      title: series.series_title,
+      episodes,
+    };
+  });
 
   return {
     ...show,
     hosts,
+    series: seriesWithEpisodes,
   };
 }

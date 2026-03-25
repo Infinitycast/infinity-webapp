@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Heart, Share2, Bell, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import { User } from "@/lib/auth";
+import { EpisodeCard, EpisodeCardProps } from "../elements/EpisodeCard";
 
 export default function ShowLayout({ show, user }: { show: any; user: User }) {
   const [loved, setLoved] = useState(false);
@@ -15,30 +16,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
   const [saved, setSaved] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
 
-  const series = [
-    {
-      title: "Sample Series Name",
-      episodes: [
-        {
-          title: "The Dawn of AGI",
-          show: show.title,
-          image: show.image,
-          duration: "58:24",
-          date: "2 days ago",
-          description:
-            "Exploring artificial general intelligence and what it means for humanity.",
-        },
-        {
-          title: "Machine Learning Basics",
-          show: show.title,
-          image: show.image,
-          duration: "45:12",
-          date: "1 week ago",
-          description: "Understanding the fundamentals of machine learning.",
-        },
-      ],
-    },
-  ];
+  const series = show.series || [];
 
   const handleLove = () => {
     setLoved((prev) => !prev);
@@ -67,7 +45,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
         <div className="container mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row gap-8">
             <img
-              src={show.image}
+              src={show.image ?? "/assets/no-image.jpg"}
               alt={show.title}
               className="w-64 h-64 rounded-lg object-cover"
             />
@@ -148,26 +126,23 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
         </div>
       </div>
 
-      {/* Episodes */}
       <div className="container mx-auto px-4 py-12">
-        {series.map((s, idx) => (
-          <div key={idx} className="mb-12">
-            <h2 className="text-3xl mb-6">{s.title}</h2>
+        {series.map(
+          (seriesData: any, idx: number) =>
+            seriesData.episodes.length > 0 && (
+              <div key={idx} className="mb-12">
+                <h2 className="text-3xl mb-6">{seriesData.title}</h2>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              {s.episodes.map((episode) => (
-                <Link
-                  key={episode.title}
-                  href={`/episode/${episode.title
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                >
-                  {/*<EpisodeCard {...episode} />*/}
-                </Link>
-              ))}
-            </div>
-          </div>
-        ))}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {seriesData.episodes.map((episode: EpisodeCardProps) => (
+                    <Link key={episode.title} href={`/episode/${episode.id}`}>
+                      <EpisodeCard {...episode} />
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )
+        )}
       </div>
     </MainLayout>
   );
