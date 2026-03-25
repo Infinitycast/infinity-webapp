@@ -91,7 +91,7 @@ export async function getShowBySlug(slug: string) {
         date: new Date(ep.release_date).toLocaleDateString(),
         description: ep.about,
       }));
-    console.log(episodes);
+
     return {
       id: series.id,
       title: series.series_title,

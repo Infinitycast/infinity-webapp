@@ -134,11 +134,16 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
                 <h2 className="text-3xl mb-6">{seriesData.title}</h2>
 
                 <div className="grid md:grid-cols-2 gap-6">
-                  {seriesData.episodes.map((episode: EpisodeCardProps) => (
-                    <Link key={episode.title} href={`/episode/${episode.id}`}>
-                      <EpisodeCard {...episode} />
-                    </Link>
-                  ))}
+                  {[...seriesData.episodes]
+                    .sort(
+                      (a: EpisodeCardProps, b: EpisodeCardProps) =>
+                        (a.episode_number ?? 999) - (b.episode_number ?? 999)
+                    )
+                    .map((episode: EpisodeCardProps) => (
+                      <Link key={episode.title} href={`/episode/${episode.id}`}>
+                        <EpisodeCard {...episode} />
+                      </Link>
+                    ))}
                 </div>
               </div>
             )
