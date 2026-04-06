@@ -3,11 +3,13 @@
 import { Play, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { BACKEND_URL } from "@/lib/globals";
+import { getAsset } from "@/lib/assets";
 
 interface PodcastCardProps {
   name: string;
   host: string;
-  image: string;
+  display_picture: string;
   category: string;
   trending?: boolean;
   listeners?: string;
@@ -17,7 +19,7 @@ interface PodcastCardProps {
 export const PodcastCard = ({
   name,
   host,
-  image,
+  display_picture,
   category,
   trending,
   listeners,
@@ -32,7 +34,8 @@ export const PodcastCard = ({
         }`}
       >
         <img
-          src={image ?? "/assets/no-image.jpg"}
+          key={display_picture}
+          src={display_picture ?? "/assets/no-image.jpg"}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />

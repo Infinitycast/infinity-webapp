@@ -45,7 +45,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
         <div className="container mx-auto px-4 py-12">
           <div className="flex flex-col md:flex-row gap-8">
             <img
-              src={show.image ?? "/assets/no-image.jpg"}
+              src={show?.display_picture ?? "/assets/no-image.jpg"}
               alt={show.title}
               className="w-64 h-64 rounded-lg object-cover"
             />

@@ -89,6 +89,7 @@ export default async function Studio() {
     },
   ];
 
+  console.log("myShows", myShows);
   const recentActivity: any[] = [];
 
   return (

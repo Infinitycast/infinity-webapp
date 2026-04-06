@@ -1,5 +1,6 @@
 "use server";
 
+import { getAsset } from "@/lib/assets";
 import { BACKEND_URL } from "@/lib/globals";
 
 export async function getShowBySlug(slug: string) {
@@ -12,12 +13,11 @@ export async function getShowBySlug(slug: string) {
   if (!showRes.ok) throw new Error("Failed to fetch show");
 
   const { data: showData } = await showRes.json();
-
   if (!showData?.length) throw new Error("Show not found");
 
   const show = showData[0];
 
-  // Fetch hosts (junction)
+  // Fetch hosts
   const junctionRes = await fetch(
     `${BACKEND_URL}/items/shows_creator?filter[shows_id][_eq]=${show.id}`,
     { cache: "no-store" }
@@ -26,7 +26,6 @@ export async function getShowBySlug(slug: string) {
   if (!junctionRes.ok) throw new Error("Failed to fetch show creators");
 
   const { data: junctionData } = await junctionRes.json();
-
   const creatorIds = junctionData.map((j: any) => j.creator_id);
 
   let hosts: any[] = [];
@@ -49,7 +48,7 @@ export async function getShowBySlug(slug: string) {
     }));
   }
 
-  // Fetch series for this show
+  // Fetch series
   const seriesRes = await fetch(
     `${BACKEND_URL}/items/series?filter[show][_eq]=${show.id}&sort=order`,
     { cache: "no-store" }
@@ -59,7 +58,7 @@ export async function getShowBySlug(slug: string) {
 
   const { data: seriesData } = await seriesRes.json();
 
-  // Fetch episodes for all series
+  // Fetch episodes
   const seriesIds = seriesData.map((s: any) => s.id);
 
   let episodesData: any[] = [];
@@ -78,7 +77,7 @@ export async function getShowBySlug(slug: string) {
     episodesData = data;
   }
 
-  // Group episodes by series
+  // Build series WITH transformed images (single pass)
   const seriesWithEpisodes = seriesData.map((series: any) => {
     const episodes = episodesData
       .filter((ep) => ep.series === series.id)
@@ -86,7 +85,7 @@ export async function getShowBySlug(slug: string) {
         id: ep.id,
         title: ep.title,
         episode_number: ep.episode_number,
-        image: show.image,
+        image: getAsset(ep.image),
         duration: "—",
         date: new Date(ep.release_date).toLocaleDateString(),
         description: ep.about,
@@ -99,8 +98,11 @@ export async function getShowBySlug(slug: string) {
     };
   });
 
+  // Single clean return
   return {
     ...show,
+    image: getAsset(show.image),
+    display_picture: getAsset(show.display_picture),
     hosts,
     series: seriesWithEpisodes,
   };

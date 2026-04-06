@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { Global } from "@/lib/directus";
+import { getAsset } from "@/lib/assets";
 
 export async function getMyShows() {
   const cookieStore = await cookies();
@@ -77,7 +78,13 @@ export async function getMyShows() {
       myShowIds.includes(show.id)
     );
 
-    return userShows;
+    const transformedShows = userShows.map((show: any) => ({
+      ...show,
+      image: getAsset(show.image),
+      display_picture: getAsset(show.display_picture),
+    }));
+
+    return transformedShows;
   } catch (error) {
     console.error("Error fetching my shows:", error);
     return [];
