@@ -130,7 +130,7 @@ export default function EpisodePage({
             <div className="flex items-center gap-4 text-muted-foreground">
               <span>{episode.date ?? "no date"}</span>
               <span>•</span>
-              <span>{episode.duration ?? "no duration"}</span>
+              <span>{episode?.duration ?? "no duration"}</span>
               <span>•</span>
               <span className="flex items-center gap-2">
                 <Heart className="h-4 w-4 fill-current text-primary" />
@@ -139,11 +139,6 @@ export default function EpisodePage({
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <Button size="lg" className="gap-2">
-                <Play className="h-5 w-5" />
-                Play Episode
-              </Button>
-
               <Button size="lg" variant="outline" onClick={handleSave}>
                 <Heart
                   className={`h-5 w-5 ${
@@ -162,10 +157,12 @@ export default function EpisodePage({
                 {loved ? "Loved" : "Love"} ({loveCount.toLocaleString()})
               </Button>
 
-              <Button size="lg" onClick={handleDonate}>
-                <DollarSign className="hidden h-5 w-5" />
-                Donate
-              </Button>
+              {false && (
+                <Button size="lg" onClick={handleDonate}>
+                  <DollarSign className="h-5 w-5" />
+                  Donate
+                </Button>
+              )}
 
               <Button size="lg" variant="outline">
                 <Share2 className="h-5 w-5" />

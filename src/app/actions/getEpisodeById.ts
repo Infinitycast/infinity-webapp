@@ -62,6 +62,7 @@ export async function getEpisodeById(episodeId: string) {
       id: data.id,
       title: data.title,
       description: data.about,
+      duration: data.duration,
       date: new Date(data.release_date).toLocaleDateString(),
       video: getAsset(data.video),
       image: getAsset(data.image),
