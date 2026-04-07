@@ -292,7 +292,7 @@ export const VideoPlayer = ({
                 step="0.01"
                 value={isMuted ? 0 : volume}
                 onChange={handleVolumeChange}
-                className="w-0 group-hover/vol:w-20 transition-all duration-300 accent-accent h-1 cursor-pointer"
+                className="w-20 group-hover/vol:w-20 transition-all duration-300 accent-accent h-1 cursor-pointer"
               />
             </div>
             <span className="text-muted-foreground text-xs font-mono">
@@ -392,7 +392,7 @@ export const VideoPlayer = ({
                 step="0.01"
                 value={isMuted ? 0 : volume}
                 onChange={handleVolumeChange}
-                className="w-0 group-hover/vol:w-20 transition-all duration-300 accent-primary h-1 cursor-pointer"
+                className="w-20 transition-all duration-300 accent-primary h-1 cursor-pointer"
               />
             </div>
             <span className="text-white/60 text-xs font-mono">
