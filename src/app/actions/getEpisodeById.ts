@@ -65,7 +65,7 @@ export async function getEpisodeById(episodeId: string) {
       duration: data.duration,
       date: new Date(data.release_date).toLocaleDateString(),
       video: getAsset(data.video),
-      image: getAsset(data.image),
+      image: getAsset(data.thumbnail),
       show: show
         ? {
             id: show.id,

@@ -85,7 +85,7 @@ export async function getShowBySlug(slug: string) {
         id: ep.id,
         title: ep.title,
         episode_number: ep.episode_number,
-        image: getAsset(ep.image),
+        image: getAsset(ep.thumbnail),
         duration: ep.duration ?? "—",
         date: new Date(ep.release_date).toLocaleDateString(),
         description: ep.about,
