@@ -30,6 +30,7 @@ export default function EpisodePage({
     }
     return false;
   });
+  const [trackAudio, setTrackAudio] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("theatre-mode", String(cinemaMode));
@@ -74,39 +75,30 @@ export default function EpisodePage({
     }
   }, [episodeId]);
 
-  console.log("episode on page", episode);
-
   return (
     <MainLayout user={user}>
-      {/* Theatre mode */}
-      {cinemaMode && (
-        <div className="w-full h-[90vh] bg-black">
-          <VideoPlayer
-            bumperSrc="/videos/bumper.mp4"
-            videoUrl={episode.video}
-            thumbnail={episode.image ?? "/assets/no-image.jpg"}
-            title={episode.title}
-            cinemaMode={cinemaMode}
-            onToggleCinemaMode={() => setCinemaMode(!cinemaMode)}
-          />
-        </div>
-      )}
+      <div
+        className={`bg-black w-full ${
+          cinemaMode && !trackAudio
+            ? "h-[90vh]"
+            : trackAudio
+            ? "max-w-4xl mx-auto my-8"
+            : "max-w-4xl mx-auto my-8"
+        }`}
+      >
+        <VideoPlayer
+          bumperSrc="/videos/bumper.mp4"
+          videoUrl={episode.video}
+          thumbnail={episode.image ?? "/assets/no-image.jpg"}
+          title={episode.title}
+          cinemaMode={cinemaMode}
+          setTrackAudio={setTrackAudio}
+          onToggleCinemaMode={() => setCinemaMode(!cinemaMode)}
+        />
+      </div>
 
       <div className="container mx-auto px-4 py-6">
         <div className="max-w-4xl mx-auto">
-          {!cinemaMode && (
-            <div className="mb-8">
-              <VideoPlayer
-                bumperSrc="/videos/bumper.mp4"
-                videoUrl={episode.video}
-                thumbnail={episode.image}
-                title={episode.title}
-                cinemaMode={cinemaMode}
-                onToggleCinemaMode={() => setCinemaMode(!cinemaMode)}
-              />
-            </div>
-          )}
-
           {/* Header */}
           <div className="mb-12 space-y-4">
             <Link

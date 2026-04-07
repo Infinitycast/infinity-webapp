@@ -18,6 +18,7 @@ interface VideoPlayerProps {
   audioUrl?: string;
   thumbnail: string;
   title: string;
+  setTrackAudio: (trackAudio: boolean) => void;
   bumperSrc?: string;
   cinemaMode?: boolean;
   onToggleCinemaMode?: () => void;
@@ -34,6 +35,7 @@ export const VideoPlayer = ({
   thumbnail,
   title,
   bumperSrc,
+  setTrackAudio,
   cinemaMode,
   onToggleCinemaMode,
 }: VideoPlayerProps) => {
@@ -51,7 +53,7 @@ export const VideoPlayer = ({
     bumperSrc ? "bumper" : "main"
   );
   const [hasStarted, setHasStarted] = useState(false);
-  const hideTimeout = useRef<ReturnType<typeof setTimeout>>(null);
+  const hideTimeout = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const currentSrc = phase === "bumper" && bumperSrc ? bumperSrc : videoUrl;
 
@@ -166,7 +168,12 @@ export const VideoPlayer = ({
 
   const toggleAudioOnly = () => {
     if (phase === "bumper") return;
-    setAudioOnly((prev) => !prev);
+
+    setAudioOnly((prev) => {
+      const next = !prev;
+      setTrackAudio(next);
+      return next;
+    });
   };
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -178,7 +185,7 @@ export const VideoPlayer = ({
       className={`relative overflow-hidden select-none group transition-all duration-500 bg-black ${
         cinemaMode ? "rounded-none" : "rounded-lg"
       } ${isFullscreen ? "flex items-center justify-center" : ""} ${
-        cinemaMode ? "h-full" : ""
+        cinemaMode && !isCompactAudio ? "h-full" : ""
       }`}
       onMouseMove={resetHideTimer}
       onMouseLeave={() => isPlaying && setShowControls(false)}
