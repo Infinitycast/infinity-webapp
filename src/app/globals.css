@@ -58,10 +58,8 @@
 -------------------------------------------------- */
 :root {
   /* Base fonts */
-  --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  --font-display: "Bebas Neue", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 
   /* Other design tokens (your HSL system) */
   --radius: 0.75rem;
@@ -194,5 +192,3 @@
     display: none;
   }
 }
-
-

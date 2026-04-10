@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -9,14 +8,17 @@ import "./globals.css";
 import { TokenRefresher } from "@/components/core/TokenRefresher";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+import { Inter, Bebas_Neue } from "next/font/google";
+
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bebas = Bebas_Neue({
   subsets: ["latin"],
+  variable: "--font-display",
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -31,9 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${bebas.variable} antialiased`}>
         <SidebarProvider>
           <TokenRefresher />
           <Toaster />
