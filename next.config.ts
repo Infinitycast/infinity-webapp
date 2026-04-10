@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["api-infinitycast.up.railway.app", "edge.infinitycast.co.uk"],
+  },
 };
 
 export default nextConfig;

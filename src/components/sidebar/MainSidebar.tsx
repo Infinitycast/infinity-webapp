@@ -53,7 +53,7 @@ export function MainSidebar({ user }: MainSidebarProps) {
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <div
-          className={`flex items-center gap-3 px-4 py-2 ${
+          className={`group flex items-center gap-3 px-4 py-2 ${
             collapsed ? "justify-center" : ""
           }`}
         >
@@ -62,11 +62,10 @@ export function MainSidebar({ user }: MainSidebarProps) {
               <img
                 src="/assets/logo.png"
                 alt="InfinityCast"
-                width={32}
-                height={32}
-                className="absolute inset-0 my-auto transition-all duration-150 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-90"
+                className="!w-6 !h-6 transition-all duration-150 group-hover:opacity-0 group-hover:scale-90"
               />
-              <div className="absolute inset-0 flex items-center justify-center transition-all duration-150 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
+
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 scale-90 transition-all duration-150 group-hover:opacity-100 group-hover:scale-100">
                 <SidebarTrigger />
               </div>
             </div>

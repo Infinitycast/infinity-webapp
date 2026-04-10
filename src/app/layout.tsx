@@ -4,11 +4,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-import "./globals.css";
 import { TokenRefresher } from "@/components/core/TokenRefresher";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 import { Inter, Bebas_Neue } from "next/font/google";
+
+import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
