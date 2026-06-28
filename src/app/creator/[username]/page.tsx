@@ -18,8 +18,6 @@ export default async function Creator({
 
   if (!creatorData) {
     return <NoCreatorPage user={user} />;
-  } else if (!user) {
-    notFound();
   }
 
   const { following, followId } = await checkFollowers(
