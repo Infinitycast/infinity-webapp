@@ -4,8 +4,6 @@ import CreatorPage from "@/components/pages/CreatorPage";
 import NoCreatorPage from "@/components/pages/NoCreatorPage";
 import { getCurrentUser } from "@/lib/auth";
 
-import { notFound } from "next/navigation";
-
 export default async function Creator({
   params,
 }: {
