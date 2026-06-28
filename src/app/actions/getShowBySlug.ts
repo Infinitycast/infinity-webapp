@@ -34,7 +34,7 @@ export async function getShowBySlug(slug: string) {
     const creatorsRes = await fetch(
       `${BACKEND_URL}/items/creator?filter[id][_in]=${creatorIds.join(
         ","
-      )}&fields=id,name`,
+      )}&fields=id,name,username`,
       { cache: "no-store" }
     );
 
@@ -45,6 +45,7 @@ export async function getShowBySlug(slug: string) {
     hosts = creatorsData.map((c: any) => ({
       id: c.id,
       name: c.name,
+      username: c.username,
     }));
   }
 

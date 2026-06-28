@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Heart, Share2, Bell, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import { User } from "@/lib/auth";
-import { EpisodeCard, EpisodeCardProps } from "../elements/EpisodeCard";
+import EpisodeCard, { EpisodeCardProps } from "../elements/EpisodeCard";
 
 export default function ShowLayout({ show, user }: { show: any; user: User }) {
   const [loved, setLoved] = useState(false);
@@ -61,8 +61,8 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
                   return (
                     <span key={host.id}>
                       <Link
-                        href={`/creator/${host.id}`}
-                        className="text-primary underline"
+                        href={`/creator/${host.username}`}
+                        className="text-primary hover:underline"
                       >
                         {host.name}
                       </Link>
@@ -140,9 +140,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
                         (a.episode_number ?? 999) - (b.episode_number ?? 999)
                     )
                     .map((episode: EpisodeCardProps) => (
-                      <Link key={episode.title} href={`/episode/${episode.id}`}>
-                        <EpisodeCard {...episode} />
-                      </Link>
+                      <EpisodeCard key={episode.id} {...episode} />
                     ))}
                 </div>
               </div>

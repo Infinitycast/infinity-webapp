@@ -12,7 +12,6 @@ export async function POST() {
       return NextResponse.json({ error: "No refresh token" }, { status: 401 });
     }
 
-    // ✅ Correct: JSON mode with explicit token
     const result = await client.request(refresh("json", refreshToken));
 
     if (!result.access_token || !result.refresh_token) {

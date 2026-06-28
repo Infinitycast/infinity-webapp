@@ -14,7 +14,7 @@ interface ScrollableSectionProps {
   viewAllLink?: string;
 }
 
-export function ScrollableSection({
+export default function ScrollableSection({
   children,
   title,
   description,

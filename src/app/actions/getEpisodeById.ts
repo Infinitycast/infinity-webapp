@@ -43,7 +43,7 @@ export async function getEpisodeById(episodeId: string) {
       const creatorsRes = await fetch(
         `${BACKEND_URL}/items/creator?filter[id][_in]=${creatorIds.join(
           ","
-        )}&fields=id,name`,
+        )}&fields=id,name,username`,
         { cache: "no-store" }
       );
 
@@ -53,6 +53,7 @@ export async function getEpisodeById(episodeId: string) {
         creators = creatorsData.map((c: any) => ({
           id: c.id,
           name: c.name,
+          username: c.username,
         }));
       }
     }
@@ -63,7 +64,7 @@ export async function getEpisodeById(episodeId: string) {
       title: data.title,
       description: data.about,
       duration: data.duration,
-      date: new Date(data.release_date).toLocaleDateString(),
+      date: data.release_date,
       video: getAsset(data.video),
       image: getAsset(data.thumbnail),
       show: show

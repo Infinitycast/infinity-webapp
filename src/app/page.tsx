@@ -2,8 +2,8 @@ import { MainLayout } from "@/components/layouts/MainLayout";
 import { Footer } from "@/components/layouts/Footer";
 
 import { getCurrentUser } from "@/lib/auth";
-import { EpisodeCard } from "@/components/elements/EpisodeCard";
-import { ScrollableSection } from "@/components/elements/ScrollableSection";
+import EpisodeCard from "@/components/elements/EpisodeCard";
+import ScrollableSection from "@/components/elements/ScrollableSection";
 import { TrendingUp } from "lucide-react";
 import { getAllEpisodes } from "./actions/getAllEpisodes";
 
@@ -39,11 +39,12 @@ export default async function Home() {
                 icon={<TrendingUp className="h-6 w-6 text-accent" />}
                 viewAllButton
               >
-                {trendingEpisodes.map((episode, i) => (
-                  <div key={episode.title + i} className="flex-shrink-0 w-96">
-                    <EpisodeCard {...episode} />
-                  </div>
-                ))}
+                {trendingEpisodes &&
+                  trendingEpisodes.map((episode: any, i: number) => (
+                    <div key={episode.title + i} className="flex-shrink-0 w-96">
+                      <EpisodeCard {...episode} />
+                    </div>
+                  ))}
               </ScrollableSection>
             </div>
           </section>

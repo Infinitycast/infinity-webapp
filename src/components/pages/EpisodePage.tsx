@@ -5,11 +5,12 @@ import Link from "next/link";
 
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Play, Heart, Share2, DollarSign } from "lucide-react";
+import { Heart, Share2, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import VideoPlayer from "@/components/video/VideoPlayer";
 import { CommentSection } from "@/components/video/CommentSection";
 import { User } from "@/lib/auth";
+import { dateFormat } from "@/utils/dateFormat/dateFormat";
 
 export default function EpisodePage({
   episodeId,
@@ -113,8 +114,8 @@ export default function EpisodePage({
               {episode.creators?.map((creator: any, i: number) => (
                 <span key={creator.id}>
                   <Link
-                    href={`/creator/${creator.id}`}
-                    className="hover:text-primary underline"
+                    href={`/creator/${creator.username}`}
+                    className="text-primary hover:underline"
                   >
                     {creator.name}
                   </Link>
@@ -128,7 +129,7 @@ export default function EpisodePage({
             </h1>
 
             <div className="flex items-center gap-4 text-muted-foreground">
-              <span>{episode.date ?? "no date"}</span>
+              <span>{dateFormat(episode.date) ?? "no date"}</span>
               <span>•</span>
               <span>{episode?.duration ?? "no duration"}</span>
               <span>•</span>
