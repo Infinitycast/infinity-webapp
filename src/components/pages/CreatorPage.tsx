@@ -176,7 +176,7 @@ export default function CreatorPage({
                     onClick={() => router.push("/auth/signin")}
                     variant={"default"}
                   >
-                    Signin to follow!
+                    Sign in to follow!
                   </Button>
                 ) : (
                   <Button
