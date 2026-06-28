@@ -1,0 +1,44 @@
+/* Show badge only when .browse-image-container does NOT also have .overlay */
+
+a[href$=".com/oneness"] .browse-image-container:not(.overlay)::after,
+a[href$=".com/the-graham-girls"] .browse-image-container:not(.overlay)::after {
+  content: "NEW EPISODE";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+a[href$=".com/locked-up-inna-jamaica-the-vaughn-taylor-diary"]
+  .browse-image-container:not(.overlay)::after,
+a[href$=".com/the-invisible-web"] .browse-image-container:not(.overlay)::after,
+a[href$=".com/from-the-womb-the-birth-of-trauma"]
+  .browse-image-container:not(.overlay)::after,
+a[href*=".com/the-weight-they-carry"]
+  .browse-image-container:not(.overlay)::after,
+a[href*=".com/edens-diet-a-biblical-journey-from-plants-to-predators"]
+  .browse-image-container:not(.overlay)::after,
+a[href*=".com/the-weight-they-carry"]
+  .browse-image-container:not(.overlay)::after,
+a[href*=".com/divine-order-slavery-and-servitude-in-hebraic-understanding"]
+  .browse-image-container:not(.overlay)::after,
+a[href*=".com/the-land-of-the-living-a-biblical-and-prophetic-narrative"]
+  .browse-image-container:not(.overlay)::after {
+  content: "NEW";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background-color: white;
+  color: #63747a;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 10;
+}

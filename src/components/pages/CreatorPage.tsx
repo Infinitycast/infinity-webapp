@@ -13,6 +13,7 @@ import { Check, Crown, Lock, Radio, Calendar } from "lucide-react";
 import { toast } from "sonner";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { User } from "@/lib/auth";
+import { useRouter } from "next/navigation";
 
 export default function CreatorPage({
   user,
@@ -28,6 +29,8 @@ export default function CreatorPage({
   const [following, setFollowing] = useState(isFollowing ?? false);
   const [currentFollowId, setCurrentFollowId] = useState(followId);
   const [isMember, setIsMember] = useState(false);
+
+  const router = useRouter();
 
   const shows = [
     {
@@ -70,8 +73,6 @@ export default function CreatorPage({
     "Member-only Discord community",
     "Bonus episodes and extended interviews",
   ];
-
-  console.log("currentFollowId", currentFollowId);
 
   const handleFollow = async () => {
     if (isFollowing) {
@@ -169,13 +170,23 @@ export default function CreatorPage({
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <Button
-                  size="lg"
-                  onClick={handleFollow}
-                  variant={following ? "outline" : "default"}
-                >
-                  {following ? "Following" : "Follow"}
-                </Button>
+                {!user ? (
+                  <Button
+                    size="lg"
+                    onClick={() => router.push("/auth/signin")}
+                    variant={"default"}
+                  >
+                    Signin to follow!
+                  </Button>
+                ) : (
+                  <Button
+                    size="lg"
+                    onClick={handleFollow}
+                    variant={following ? "outline" : "default"}
+                  >
+                    {following ? "Following" : "Follow"}
+                  </Button>
+                )}
                 {false && (
                   <Button
                     size="lg"
