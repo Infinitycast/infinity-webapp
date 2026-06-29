@@ -27,7 +27,6 @@ export async function isUserCreator({
     );
 
     const creatorsData = await creatorsRes.json();
-    console.log("creator data:", creatorsData);
     return creatorsData.data?.length > 0;
   } catch (error) {
     console.error("Error checking creator profile:", error);

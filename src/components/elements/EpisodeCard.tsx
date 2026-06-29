@@ -30,13 +30,13 @@ export default function EpisodeCard({
     <Link href={`/episode/${id}`} className="block">
       <div className="group flex gap-4 cursor-pointer hover:bg-muted/10 rounded-lg p-3 -m-3 transition-colors">
         {/* Image */}
-        <div className="relative w-40 h-30 aspect-video flex-shrink-0 rounded-lg overflow-hidden">
+        <div className="relative w-50 h-auto aspect-video flex-shrink-0 rounded-lg overflow-hidden">
           <Image
             src={image ?? "/assets/no-image.jpg"}
             alt={title}
             fill
             sizes="160px"
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover aspect-video transition-transform duration-300 group-hover:scale-105"
           />
 
           {/* Hover Overlay */}

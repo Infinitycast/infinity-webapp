@@ -100,7 +100,7 @@ export function MainSidebar({ user }: MainSidebarProps) {
                     <Link
                       href={item.url}
                       className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 hover:text-foreground transition-colors",
+                        "flex items-center gap-3 px-3 py-2 rounded-md hover:bg-secondary hover:text-secondary-foreground transition-colors",
                         {
                           "bg-primary text-black": currentPath === item.url,
                         }

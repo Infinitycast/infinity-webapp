@@ -263,7 +263,7 @@ export const Footer = () => {
 
             {/* Copyright */}
             <div className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Infinity. All rights reserved.
+              © {new Date().getFullYear()} InfinityCast. All rights reserved.
             </div>
           </div>
         </div>
