@@ -4,13 +4,13 @@ import { Footer } from "@/components/layouts/Footer";
 import { getCurrentUser } from "@/lib/auth";
 import EpisodeCard from "@/components/elements/EpisodeCard";
 import ScrollableSection from "@/components/elements/ScrollableSection";
-import { TrendingUp } from "lucide-react";
-import { getAllEpisodes } from "./actions/getAllEpisodes";
+import { Sparkles, TrendingUp } from "lucide-react";
+import { getLatestEpisodes } from "./actions/getLatestEpisodes";
 
 export default async function Home() {
   const user = await getCurrentUser();
 
-  const trendingEpisodes = await getAllEpisodes();
+  const latestEpisodes = await getLatestEpisodes();
 
   return (
     <div>
@@ -34,13 +34,13 @@ export default async function Home() {
           <section className="py-16 bg-muted/20">
             <div className="container mx-auto px-4">
               <ScrollableSection
-                title={"Trending Episodes".toUpperCase()}
+                title={"Latest Episodes".toUpperCase()}
                 description="The hottest episodes everyone's talking about"
-                icon={<TrendingUp className="h-6 w-6 text-accent" />}
+                icon={<Sparkles className="h-6 w-6 text-accent" />}
                 viewAllButton
               >
-                {trendingEpisodes &&
-                  trendingEpisodes.map((episode: any, i: number) => (
+                {latestEpisodes &&
+                  latestEpisodes.map((episode: any, i: number) => (
                     <div key={episode.title + i} className="flex-shrink-0 w-96">
                       <EpisodeCard {...episode} />
                     </div>

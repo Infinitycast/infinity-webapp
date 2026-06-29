@@ -69,7 +69,7 @@ export default function ScrollableSection({
     <div className="relative scroll-section">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <div className="flex items-center justify-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2">
             <span>{icon}</span>
             <h2 className="text-4xl md:text-5xl font-display mb-0">{title}</h2>
           </div>
