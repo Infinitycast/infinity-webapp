@@ -1,8 +1,8 @@
 import { getShowBySlug } from "@/app/actions/getShowBySlug";
-import ShowLayout from "@/components/layouts/ShowLayout";
+import ShowPage from "@/components/pages/ShowPage";
 import { getCurrentUser } from "@/lib/auth";
 
-export default async function ShowPage({
+export default async function Show({
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -11,5 +11,5 @@ export default async function ShowPage({
   const user = await getCurrentUser();
 
   const show = await getShowBySlug(slug);
-  return <ShowLayout show={show} user={user} />;
+  return <ShowPage show={show} user={user} />;
 }

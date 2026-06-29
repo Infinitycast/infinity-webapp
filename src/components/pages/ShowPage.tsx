@@ -9,8 +9,9 @@ import { Play, Heart, Share2, Bell, DollarSign } from "lucide-react";
 import { toast } from "sonner";
 import { User } from "@/lib/auth";
 import EpisodeCard, { EpisodeCardProps } from "../elements/EpisodeCard";
+import { Footer } from "../layouts/Footer";
 
-export default function ShowLayout({ show, user }: { show: any; user: User }) {
+export default function ShowPage({ show, user }: { show: any; user: User }) {
   const [loved, setLoved] = useState(false);
   const [loveCount, setLoveCount] = useState(8234);
   const [saved, setSaved] = useState(false);
@@ -147,6 +148,7 @@ export default function ShowLayout({ show, user }: { show: any; user: User }) {
             )
         )}
       </div>
+      <Footer />
     </MainLayout>
   );
 }

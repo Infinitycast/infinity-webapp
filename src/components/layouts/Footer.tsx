@@ -21,21 +21,15 @@ export const Footer = () => {
         <div className="py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <Radio className="h-6 w-6 text-primary-foreground" />
-              </div>
-              <span className="text-2xl font-display">INFINITY</span>
-            </Link>
             <p className="text-muted-foreground mb-6 max-w-sm">
               Your ultimate destination for podcasts, live streams, and original
-              content. Discover shrefries that matter, from creahrefrs you love.
+              content.
             </p>
 
             {/* Newsletter */}
             <div className="space-y-3">
               <h4 className="font-semibold text-sm">
-                Subscribe href our newsletter
+                Subscribe to our newsletter
               </h4>
               <div className="flex gap-2">
                 <Input

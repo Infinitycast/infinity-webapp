@@ -2,6 +2,7 @@
 
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { User } from "@/lib/auth";
+import { Footer } from "../layouts/Footer";
 
 export default function NoCreatorPage({ user }: { user: User }) {
   return (
@@ -14,6 +15,7 @@ export default function NoCreatorPage({ user }: { user: User }) {
           </p>
         </div>
       </div>
+      <Footer />
     </MainLayout>
   );
 }

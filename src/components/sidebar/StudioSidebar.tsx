@@ -25,6 +25,7 @@ import {
   SidebarFooter,
   SidebarTrigger,
   SidebarHeader,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -61,9 +62,10 @@ export function StudioSidebar(props: any) {
 
   return (
     <Sidebar className={collapsed ? "w-14" : "w-64"} collapsible="icon">
+      <SidebarRail />
       <SidebarHeader>
         <div
-          className={`flex items-center gap-3 px-4 py-2 ${
+          className={`flex items-center gap-3 px-3 py-2 ${
             collapsed ? "justify-center" : ""
           }`}
         >
@@ -73,13 +75,10 @@ export function StudioSidebar(props: any) {
                 <img
                   src="/assets/logo.png"
                   alt="InfinityCast"
-                  width={32}
-                  height={32}
-                  className="absolute inset-0 my-auto transition-all duration-150 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-90"
+                  width={28}
+                  height={28}
+                  className="w-6 w-6"
                 />
-                <div className="absolute inset-0 flex items-center justify-center transition-all duration-150 opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100">
-                  <SidebarTrigger />
-                </div>
               </div>
             ) : (
               <>
@@ -96,6 +95,9 @@ export function StudioSidebar(props: any) {
               </>
             )}
           </Link>
+          <div className="ms-auto block sm:hidden">
+            <SidebarTrigger isClose={true} />
+          </div>
         </div>
       </SidebarHeader>
 

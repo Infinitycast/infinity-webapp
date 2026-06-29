@@ -15,6 +15,7 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarTrigger,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -51,37 +52,40 @@ export function MainSidebar({ user }: MainSidebarProps) {
 
   return (
     <Sidebar collapsible="icon">
+      <SidebarRail />
       <SidebarHeader>
         <div
-          className={`group flex items-center gap-3 px-4 py-2 ${
+          className={`flex items-center gap-3 px-4 py-2 ${
             collapsed ? "justify-center" : ""
           }`}
         >
           {collapsed ? (
-            <div className="relative flex items-center justify-center w-8 h-8">
+            <div className="flex items-center justify-center w-8 h-8">
               <img
                 src="/assets/logo.png"
                 alt="InfinityCast"
-                className="!w-6 !h-6 transition-all duration-150 group-hover:opacity-0 group-hover:scale-90"
+                className="w-6 h-6 shrink-0 object-contain"
               />
-
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 scale-90 transition-all duration-150 group-hover:opacity-100 group-hover:scale-100">
-                <SidebarTrigger />
-              </div>
             </div>
           ) : (
-            <Link href="/" className="group inline-flex items-center">
-              <img
-                src="/assets/logo.png"
-                alt="InfinityCast"
-                width={32}
-                height={32}
-                className="shrink-0"
-              />
-              <span className="ml-3 text-xl font-display tracking-wider">
-                INFINITYCAST
-              </span>
-            </Link>
+            <>
+              <Link href="/" className="inline-flex items-center">
+                <img
+                  src="/assets/logo.png"
+                  alt="InfinityCast"
+                  width={32}
+                  height={32}
+                  className="shrink-0"
+                />
+                <span className="ml-3 text-xl font-display tracking-wider">
+                  INFINITYCAST
+                </span>
+              </Link>
+
+              <div className="ms-auto block sm:hidden">
+                <SidebarTrigger isClose={true} />
+              </div>
+            </>
           )}
         </div>
       </SidebarHeader>

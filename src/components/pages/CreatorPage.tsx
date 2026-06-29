@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { MainLayout } from "@/components/layouts/MainLayout";
 import { User } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { Footer } from "../layouts/Footer";
 
 export default function CreatorPage({
   user,
@@ -409,6 +410,7 @@ export default function CreatorPage({
           </TabsContent>
         </Tabs>
       </div>
+      <Footer />
     </MainLayout>
   );
 }

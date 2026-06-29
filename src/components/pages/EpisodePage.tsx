@@ -11,6 +11,7 @@ import VideoPlayer from "@/components/video/VideoPlayer";
 import { CommentSection } from "@/components/video/CommentSection";
 import { User } from "@/lib/auth";
 import { dateFormat } from "@/utils/dateFormat/dateFormat";
+import { Footer } from "../layouts/Footer";
 
 export default function EpisodePage({
   episodeId,
@@ -197,6 +198,7 @@ export default function EpisodePage({
           </div>
         </div>
       </div>
+      <Footer />
     </MainLayout>
   );
 }

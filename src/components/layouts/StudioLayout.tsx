@@ -37,7 +37,9 @@ export function StudioLayout({ user, children }: StudioLayoutProps) {
           {/* Top Bar */}
           <header className="shrink-0 h-14 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-40">
             <div className="flex items-center h-full px-4 gap-4">
-              <SidebarTrigger />
+              <div className="block md:hidden">
+                <SidebarTrigger />
+              </div>
 
               {/* Mobile logo */}
               <div className="md:hidden flex-1 flex justify-center">

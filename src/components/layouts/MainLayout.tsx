@@ -38,15 +38,17 @@ function LayoutContent({ user, searchOpen, setSearchOpen, children }: any) {
       <div
         className={cn(
           "flex-shrink-0 transition-all duration-200",
-          collapsed ? "w-[3rem]" : "w-0 md:w-64"
+          collapsed ? "w-[3.5rem]" : "w-0 md:w-64"
         )}
       >
         <MainSidebar user={user} />
       </div>
 
-      <div className="flex flex-1 flex-col min-w-0 transition-all duration-200">
-        <header className="shrink-0 z-50 h-14 border-b border-border/50 bg-background/80 backdrop-blur-xl flex items-center px-4 gap-4">
-          {!collapsed && <SidebarTrigger />}
+      <div className="z-40 flex flex-1 flex-col min-w-0 transition-all duration-200">
+        <header className="shrink-0 h-14 border-b border-border/50 bg-background/80 backdrop-blur-xl flex items-center px-4 gap-4">
+          <div className="block md:hidden">
+            <SidebarTrigger />
+          </div>
 
           <div className="md:hidden flex-1 flex justify-center">
             <img
