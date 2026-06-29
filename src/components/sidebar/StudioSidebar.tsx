@@ -47,7 +47,6 @@ const items = [
   { title: "Analytics", url: "/studio/analytics", icon: BarChart3 },
   { title: "Originals", url: "/studio/originals", icon: Star },
   { title: "Twitch", url: "/studio/twitch", icon: TwitchIcon },
-  { title: "Create Show", url: "/create-show", icon: Upload },
   { title: "Help Hub", url: "/help", icon: HelpCircle },
   { title: "Settings", url: "/studio/settings", icon: Settings },
 ];
