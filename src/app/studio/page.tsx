@@ -23,73 +23,39 @@ export default async function Studio() {
 
   const myShows = await getMyShows();
 
-  const subscriptions = [
-    {
-      title: "The Tech Revolution",
-      host: "Sarah Chen",
-      image:
-        "https://images.unsplash.com/photo-1589254065878-42c9da997008?w=800&q=80",
-      category: "Technology",
-      listeners: "127K",
-    },
-    {
-      title: "Cinema Decoded",
-      host: "Marcus Williams",
-      image:
-        "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=800&q=80",
-      category: "Film",
-      listeners: "89K",
-    },
-    {
-      title: "Game On!",
-      host: "Alex Thompson",
-      image:
-        "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&q=80",
-      category: "Gaming",
-      listeners: "156K",
-    },
-    {
-      title: "Vinyl Vibes",
-      host: "DJ Marcus",
-      image:
-        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80",
-      category: "Music",
-      listeners: "267K",
-    },
-  ];
+  const subscriptions: any[] = [];
 
   const stats = [
     {
       label: "Total Listeners",
-      value: "21.0K",
-      change: "+12%",
+      value: "--",
+      change: "0%",
       icon: Users,
       color: "text-accent",
     },
     {
       label: "Total Plays",
-      value: "156K",
-      change: "+8%",
+      value: "--",
+      change: "0%",
       icon: Play,
       color: "text-primary",
     },
     {
       label: "Total Views",
-      value: "234K",
-      change: "+15%",
+      value: "--",
+      change: "0%",
       icon: Eye,
       color: "text-secondary",
     },
     {
       label: "Engagement Rate",
-      value: "67%",
-      change: "+5%",
+      value: "--",
+      change: "0%",
       icon: TrendingUp,
       color: "text-accent",
     },
   ];
 
-  console.log("myShows", myShows);
   const recentActivity: any[] = [];
 
   return (
@@ -143,9 +109,13 @@ export default async function Studio() {
                   </p>
                 </div>
                 <Link href="/create-show">
-                  <Button size="sm" className="gap-2">
-                    <Plus className="h-4 w-4" />
-                    New Show
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="gap-2"
+                    disabled
+                  >
+                    View all
                   </Button>
                 </Link>
               </div>
@@ -168,27 +138,31 @@ export default async function Studio() {
             <div className="bg-card border border-border rounded-lg p-6">
               <h2 className="text-2xl font-display mb-4">Recent Activity</h2>
               <div className="space-y-4">
-                {recentActivity.map((activity, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between py-3 border-b border-border last:border-0"
-                  >
-                    <div className="flex-1">
-                      <p className="font-semibold">{activity.episode}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {activity.show}
-                      </p>
+                {recentActivity && recentActivity.length > 0 ? (
+                  recentActivity.map((activity, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between py-3 border-b border-border last:border-0"
+                    >
+                      <div className="flex-1">
+                        <p className="font-semibold">{activity.episode}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {activity.show}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-primary">
+                          {activity.plays} plays
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {activity.date}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-semibold text-primary">
-                        {activity.plays} plays
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        {activity.date}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <>No recent acivity</>
+                )}
               </div>
             </div>
           </div>
@@ -204,16 +178,24 @@ export default async function Studio() {
                   className="w-full justify-start"
                   asChild
                 >
-                  <Link href="/create-show">
+                  <Link href="/studio/create">
                     <Plus className="h-4 w-4 mr-2" />
                     Create New Show
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled
+                >
                   <Play className="h-4 w-4 mr-2" />
                   Upload Episode
                 </Button>
-                <Button variant="outline" className="w-full justify-start">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start"
+                  disabled
+                >
                   <TrendingUp className="h-4 w-4 mr-2" />
                   View Analytics
                 </Button>
@@ -224,29 +206,33 @@ export default async function Studio() {
             <div className="bg-card border border-border rounded-lg p-6">
               <h3 className="text-xl font-display mb-4">My Subscriptions</h3>
               <div className="space-y-3">
-                {subscriptions.slice(0, 4).map((show) => (
-                  <Link
-                    key={show.title}
-                    href={`/show/${show.title
-                      .toLowerCase()
-                      .replace(/\s+/g, "-")}`}
-                    className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <img
-                      src={show.image}
-                      alt={show.title}
-                      className="w-12 h-12 rounded object-cover"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold truncate">
-                        {show.title}
-                      </p>
-                      <p className="text-xs text-muted-foreground truncate">
-                        {show.host}
-                      </p>
-                    </div>
-                  </Link>
-                ))}
+                {subscriptions && subscriptions.length > 0 ? (
+                  subscriptions.slice(0, 4).map((show) => (
+                    <Link
+                      key={show.title}
+                      href={`/show/${show.title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                      className="flex items-center gap-3 p-2 rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <img
+                        src={show.image}
+                        alt={show.title}
+                        className="w-12 h-12 rounded object-cover"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold truncate">
+                          {show.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">
+                          {show.host}
+                        </p>
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <>No subscriptions</>
+                )}
               </div>
             </div>
           </div>
