@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 export interface EpisodeCardProps {
   title: string;
-  show: { name: string };
+  show: string;
   image: string;
   duration: string;
   date: string;
@@ -63,7 +63,7 @@ export default function EpisodeCard({
             {title}
           </h4>
 
-          <p className="text-sm text-muted-foreground">{show.name}</p>
+          {show && <p className="text-sm text-muted-foreground">{show}</p>}
 
           <p className="text-sm text-muted-foreground/80 line-clamp-2">
             {description}

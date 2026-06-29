@@ -53,7 +53,7 @@ export default async function Home() {
                 {latestEpisodes &&
                   latestEpisodes.map((episode: any, i: number) => (
                     <div key={episode.title + i} className="flex-shrink-0 w-96">
-                      <EpisodeCard {...episode} />
+                      <EpisodeCard {...episode} show={episode.show?.name} />
                     </div>
                   ))}
               </ScrollableSection>
