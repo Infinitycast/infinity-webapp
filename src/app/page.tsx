@@ -17,15 +17,26 @@ export default async function Home() {
       <MainLayout user={user}>
         <div className="bg-background">
           {user ? (
-            <section className="py-16 bg-muted/20">
-              <div className="container mx-auto px-4">
-                You're now signed in as {user.first_name}!
+            <section className="bg-muted/20">
+              <div
+                className="bg-green-900 border-l-4 border-green-700 text-green-300 p-4"
+                role="alert"
+              >
+                <p className="font-bold">You're logged in!</p>
+                <p>You're now signed in as {user.first_name}!</p>
               </div>
             </section>
           ) : (
-            <section className="py-16">
-              <div className="container mx-auto px-4">
-                Welcome to InfinityCast (alpha)
+            <section className="">
+              <div
+                className="bg-orange-900 border-l-4 border-orange-700 text-orange-300 p-4"
+                role="alert"
+              >
+                <p className="font-bold">Be Warned</p>
+                <p>
+                  This site is currently in alpha. Things will change and may
+                  break.
+                </p>
               </div>
             </section>
           )}
