@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { dateFormat } from "@/utils/dateFormat/dateFormat";
 
 export interface EpisodeCardProps {
   title: string;
   show: string;
   image: string;
   duration: string;
-  date: string;
+  date: Date;
   description: string;
   episode_number: number;
   id: string;
@@ -70,7 +71,7 @@ export default function EpisodeCard({
           </p>
 
           <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
-            <span>{date}</span>
+            <span>{dateFormat(date)}</span>
           </div>
         </div>
       </div>

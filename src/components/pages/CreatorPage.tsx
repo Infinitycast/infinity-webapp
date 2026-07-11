@@ -30,6 +30,7 @@ export default function CreatorPage({
   const [following, setFollowing] = useState(isFollowing ?? false);
   const [currentFollowId, setCurrentFollowId] = useState(followId);
   const [isMember, setIsMember] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
@@ -76,6 +77,10 @@ export default function CreatorPage({
   ];
 
   const handleFollow = async () => {
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
     if (isFollowing) {
       const res = await fetch("/api/follow/delete", {
         method: "DELETE",
@@ -92,6 +97,8 @@ export default function CreatorPage({
       setFollowing(false);
       setCurrentFollowId(undefined);
       toast.success("Unsubscribed successfully");
+      router.refresh();
+      setIsSubmitting(false);
     } else {
       const res = await fetch("/api/follow", {
         method: "POST",
@@ -110,6 +117,8 @@ export default function CreatorPage({
       setCurrentFollowId(followerId);
       setFollowing(true);
       toast.success("Subscribed successfully!");
+      router.refresh();
+      setIsSubmitting(false);
     }
   };
 
@@ -149,7 +158,7 @@ export default function CreatorPage({
               </div>
               <div>
                 <div className="font-bold text-3xl mb-4">
-                  @{creator.username}
+                  {`@${creator.username}`}
                 </div>
               </div>
 
@@ -184,6 +193,7 @@ export default function CreatorPage({
                     size="lg"
                     onClick={handleFollow}
                     variant={following ? "outline" : "default"}
+                    disabled={isSubmitting}
                   >
                     {following ? "Following" : "Follow"}
                   </Button>
